@@ -18,4 +18,8 @@ public class CharacterMovement : MonoBehaviour {
         rb.velocity = new Vector2(Input.GetAxis("Horizontal") * maxSpeed, Input.GetAxis("Vertical") * maxSpeed);
         animator.SetBool("moving", (rb.velocity.x != 0 || rb.velocity.y != 0));
 	}
+
+    public void OnDeath() {
+        Debug.Log("Hi");
+    }
 }
