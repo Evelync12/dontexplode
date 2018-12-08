@@ -6,6 +6,7 @@ public class CharacterMovement : MonoBehaviour {
     public float maxSpeed = 10;
     private Rigidbody2D rb;
     private Animator animator;
+    private bool isAlive = true;
 
 	// Use this for initialization
 	void Start () {
@@ -15,11 +16,15 @@ public class CharacterMovement : MonoBehaviour {
 
 	// Update is called once per frame
 	private void FixedUpdate () {
-        rb.velocity = new Vector2(Input.GetAxis("Horizontal") * maxSpeed, Input.GetAxis("Vertical") * maxSpeed);
-        animator.SetBool("moving", (rb.velocity.x != 0 || rb.velocity.y != 0));
+        if (isAlive) {
+            rb.velocity = new Vector2(Input.GetAxis("Horizontal") * maxSpeed, Input.GetAxis("Vertical") * maxSpeed);
+            animator.SetBool("moving", (rb.velocity.x != 0 || rb.velocity.y != 0));
+        }
 	}
 
     public void OnDeath() {
-        Debug.Log("Hi");
+        isAlive = false;
+        rb.velocity = new Vector2(0, 0);
+        animator.SetTrigger("die");
     }
 }
